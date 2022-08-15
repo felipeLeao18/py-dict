@@ -21,4 +21,24 @@ def parse_games_full_list(page = 1, per_page = 10) -> List[Dict[str, str]]:
     games_fetched = games_data[int(start_range) : int(final_range)]
 
     return games_fetched
+
+def create_filter(filter: str = '') -> List[str]:
+    filter_handled = filter.replace(' ', '').split(';')
+    print(filter_handled)
+    if(len(filter) == 0):
+        return []
+    return filter_handled
+
+def apply_filter(filter: List[str], data: List[Dict[str, str]]) -> List[Dict[str, str]]:
+    if(len(filter) == 0 ):
+        return data
+    filtered_data = []
+    for d in data:
+        filtered_game = {}
+        for field in filter:
+            if(not d[field]):
+                continue
+            filtered_game[field] = d[field]
+        filtered_data.append(filtered_game)
+    return filtered_data
     
