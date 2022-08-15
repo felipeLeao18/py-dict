@@ -18,7 +18,7 @@ def parse_games_full_list(page = 1, per_page = 10) -> List[Dict[str, str]]:
     pagination = create_pagination(page, per_page)
 
     start_range, final_range = pagination['start_range'], pagination['final_range']
-    games_fetched = games_data[int(start_range) : int(final_range)]
+    games_fetched = games_data[int(start_range) : int(final_range) if int(final_range) < len(games_data) else len(games_data)]
 
     return games_fetched
 
@@ -36,9 +36,7 @@ def apply_filter(filter: List[str], data: List[Dict[str, str]]) -> List[Dict[str
     for d in data:
         filtered_game = {}
         for field in filter:
-            if(not d[field]):
-                continue
-            filtered_game[field] = d[field]
+            if(field in d):
+                filtered_game[field] = d[field]
         filtered_data.append(filtered_game)
     return filtered_data
-    
