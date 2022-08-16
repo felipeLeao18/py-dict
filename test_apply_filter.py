@@ -27,6 +27,9 @@ def test_apply_filter_with_invalid_filter_argument():
         {'title': 'title 2'}
     ]
 
+def test_apply_filter_with_all_arguments_invalid():
+    filter = ['foo', 'bar', 'baz']
+    assert apply_filter(filter, dict_array) == []
 
 def test_apply_filter_with_several_arguments():
     filter = ['title', 'description', 'release_year']
